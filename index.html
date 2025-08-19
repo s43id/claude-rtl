@@ -235,14 +235,18 @@
             <h1>🤖 Claude RTL</h1>
             <p>استفاده از Claude AI با پشتیبانی کامل زبان فارسی<br>
             فونت زیبا، تشخیص خودکار جهت متن، و تجربه کاربری بهینه</p>
+            <div style="margin-top: 20px;">
+                <a href="https://claude.ai" target="_blank" class="btn" style="text-decoration: none; margin-left: 10px;">🔗 رفتن به Claude</a>
+                <button class="btn secondary" onclick="showDemo()">🎬 مشاهده Demo</button>
+            </div>
         </div>
         
         <div class="action-cards">
             <!-- Method 1: Direct Launch -->
             <div class="card">
-                <h3>🚀 راه اول: راه‌اندازی مستقیم</h3>
-                <p>Claude را با RTL فعال باز کنید. این روش ساده‌ترین و سریع‌ترین راه است.</p>
-                <button class="btn" onclick="launchClaudeWithRTL()">باز کردن Claude + RTL</button>
+                <h3>🚀 راه اول: ایجاد Bookmark جادویی</h3>
+                <p>یک bookmark ایجاد کنید که با یک کلیک RTL را روی Claude فعال می‌کند.</p>
+                <button class="btn" onclick="showBookmarkletFirst()">ایجاد Bookmark RTL</button>
             </div>
             
             <!-- Method 2: Bookmarklet -->
@@ -252,34 +256,202 @@
                 <button class="btn" onclick="showBookmarklet()">ایجاد بوک‌مارک</button>
             </div>
             
-            <!-- Method 3: Manual Script -->
+            <!-- Method 3: UserScript -->
             <div class="card">
-                <h3>⚙️ راه سوم: اسکریپت دستی</h3>
-                <p>کد JavaScript را کپی کرده و در Console مرورگر اجرا کنید.</p>
-                <button class="btn" onclick="showScript()">نمایش کد</button>
+                <h3>🔧 راه سوم: UserScript (پیشرفته)</h3>
+                <p>برای کاربران حرفه‌ای: نصب UserScript که خودکار روی همه سایت‌های AI فعال می‌شود.</p>
+                <button class="btn" onclick="showUserScript()">راهنمای UserScript</button>
             </div>
         </div>
         
         <!-- Bookmarklet Section -->
         <div id="bookmarkletSection" class="script-section" style="display: none;">
-            <h3>📌 راهنمای ایجاد بوک‌مارک RTL</h3>
+            <h3>📌 راهنمای ایجاد Bookmark جادویی RTL</h3>
+            
             <div class="instructions">
+                <h4>📱 روی موبایل (اندروید/آیفون):</h4>
                 <ol>
-                    <li>روی دکمه "کپی لینک بوک‌مارک" کلیک کنید</li>
-                    <li>یک بوک‌مارک جدید در مرورگر ایجاد کنید</li>
+                    <li>کد زیر را کپی کنید</li>
+                    <li>به مرورگر خود بروید و یک bookmark جدید اضافه کنید</li>
                     <li>به جای URL، کد کپی شده را paste کنید</li>
-                    <li>نام بوک‌مارک را "Claude RTL" بگذارید</li>
-                    <li>وقتی در Claude هستید، روی این بوک‌مارک کلیک کنید</li>
+                    <li>نام bookmark را "Claude RTL ✨" بگذارید</li>
+                    <li>وقتی در Claude هستید، روی این bookmark کلیک کنید</li>
                 </ol>
+                
+                <h4>💻 روی دسکتاپ:</h4>
+                <ol>
+                    <li>کد زیر را کپی کنید</li>
+                    <li>Ctrl+Shift+O کنید (یا Bookmarks Manager را باز کنید)</li>
+                    <li>bookmark جدید اضافه کنید</li>
+                    <li>نام: "Claude RTL ✨"</li>
+                    <li>URL: کد کپی شده</li>
+                    <li>در Claude روی bookmark کلیک کنید</li>
+                </ol>
+                
+                <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <strong>✨ نکته:</strong> این bookmark روی تمام مرورگرها و دستگاه‌ها کار می‌کند!
+                </div>
             </div>
             <div class="script-box">
                 <button class="copy-btn" onclick="copyBookmarklet()">کپی</button>
                 <code id="bookmarkletCode">javascript:(function(){if(window.claudeRTLLoaded)return;window.claudeRTLLoaded=true;const css=`@import url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-web-font@v1.0.0/dist/font-face.css');.rtl-persian{font-family:'IRANYekan',Tahoma,sans-serif!important;direction:rtl!important;text-align:right!important}.rtl-font{font-family:'IRANYekan',Tahoma,sans-serif!important}pre,code{direction:ltr!important;text-align:left!important}`;const style=document.createElement('style');style.textContent=css;document.head.appendChild(style);function isPersian(text){if(!text)return false;const persianChars=(text.match(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/g)||[]).length;const englishChars=(text.match(/[A-Za-z]/g)||[]).length;return persianChars>englishChars*0.7}function processElements(){document.querySelectorAll('p,div,span,h1,h2,h3,h4,h5,h6,li,textarea,[contenteditable="true"]').forEach(el=>{if(el.closest('pre')||el.closest('code'))return;const text=el.textContent||el.value||'';el.classList.add('rtl-font');if(isPersian(text)){el.classList.add('rtl-persian');el.setAttribute('dir','rtl')}else if(text.trim()){el.setAttribute('dir','ltr')}})}processElements();new MutationObserver(processElements).observe(document.body,{childList:true,subtree:true});document.addEventListener('input',e=>{const el=e.target;const text=el.value||el.textContent||'';el.classList.add('rtl-font');if(isPersian(text)){el.classList.add('rtl-persian');el.setAttribute('dir','rtl')}else{el.classList.remove('rtl-persian');el.setAttribute('dir','ltr')}});alert('✅ Claude RTL فعال شد!')})();</code>
             </div>
-            <button class="btn success" onclick="copyBookmarklet()">کپی لینک بوک‌مارک</button>
+            <button class="btn success" onclick="copyBookmarklet()">📋 کپی کد Bookmark</button>
+            
+            <div style="background: #f0f8ff; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+                <h4>🎯 نحوه استفاده:</h4>
+                <div style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 20px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="background: #2196F3; color: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">1</div>
+                        <div>کپی کد</div>
+                    </div>
+                    <div style="font-size: 24px;">➜</div>
+                    <div style="text-align: center;">
+                        <div style="background: #2196F3; color: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">2</div>
+                        <div>ایجاد Bookmark</div>
+                    </div>
+                    <div style="font-size: 24px;">➜</div>
+                    <div style="text-align: center;">
+                        <div style="background: #2196F3; color: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">3</div>
+                        <div>رفتن به Claude</div>
+                    </div>
+                    <div style="font-size: 24px;">➜</div>
+                    <div style="text-align: center;">
+                        <div style="background: #4CAF50; color: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px;">✨</div>
+                        <div>کلیک Bookmark</div>
+                    </div>
+                </div>
+                <p style="color: #666; font-size: 14px;">بعد از کلیک، فونت فارسی اعمال می‌شود و جهت متن خودکار تشخیص داده می‌شود!</p>
+            </div>
         </div>
         
-        <!-- Script Section -->
+        <!-- UserScript Section -->
+        <div id="userScriptSection" class="script-section" style="display: none;">
+            <h3>🔧 راهنمای UserScript - راه‌حل حرفه‌ای</h3>
+            
+            <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <strong>✨ مزایای UserScript:</strong>
+                <ul style="margin: 10px 0; padding-right: 20px;">
+                    <li>خودکار روی همه سایت‌های AI فعال می‌شود</li>
+                    <li>نیازی به bookmark نیست</li>
+                    <li>آپدیت خودکار</li>
+                    <li>روی موبایل هم کار می‌کند</li>
+                </ul>
+            </div>
+            
+            <div class="instructions">
+                <h4>مرحله 1: نصب Tampermonkey</h4>
+                <ol>
+                    <li><strong>دسکتاپ:</strong> به Chrome Web Store بروید و "Tampermonkey" را نصب کنید</li>
+                    <li><strong>موبایل اندروید:</strong> Firefox + Tampermonkey addon یا Kiwi Browser + Tampermonkey</li>
+                    <li><strong>موبایل iOS:</strong> Safari + Userscripts app</li>
+                </ol>
+                
+                <h4>مرحله 2: نصب اسکریپت</h4>
+                <ol>
+                    <li>کد زیر را کپی کنید</li>
+                    <li>در Tampermonkey، "Create new script" کلیک کنید</li>
+                    <li>کد را paste کنید و Save کنید</li>
+                    <li>تمام! حالا روی همه سایت‌ها خودکار کار می‌کند</li>
+                </ol>
+            </div>
+            
+            <div class="script-box">
+                <button class="copy-btn" onclick="copyUserScript()">کپی</button>
+                <pre id="userScriptCode">// ==UserScript==
+// @name         AI RTL Persian Support
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Auto RTL for AI platforms
+// @author       Claude RTL
+// @match        https://claude.ai/*
+// @match        https://chatgpt.com/*
+// @match        https://gemini.google.com/*
+// @match        https://copilot.microsoft.com/*
+// @match        https://you.com/*
+// @match        https://perplexity.ai/*
+// @match        https://poe.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    
+    // Add Persian font CSS
+    const css = \`
+        @import url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-web-font@v1.0.0/dist/font-face.css');
+        .rtl-persian {
+            font-family: 'IRANYekan', Tahoma, sans-serif !important;
+            direction: rtl !important;
+            text-align: right !important;
+        }
+        .rtl-font {
+            font-family: 'IRANYekan', Tahoma, sans-serif !important;
+        }
+        pre, code {
+            direction: ltr !important;
+            text-align: left !important;
+        }
+    \`;
+    
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+    
+    // Persian detection
+    function isPersian(text) {
+        if (!text) return false;
+        const persianChars = (text.match(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/g) || []).length;
+        const englishChars = (text.match(/[A-Za-z]/g) || []).length;
+        return persianChars > englishChars * 0.7;
+    }
+    
+    // Process elements
+    function processElements() {
+        document.querySelectorAll('p, div, span, h1, h2, h3, h4, h5, h6, li, textarea, [contenteditable="true"]').forEach(el => {
+            if (el.closest('pre') || el.closest('code')) return;
+            
+            const text = el.textContent || el.value || '';
+            el.classList.add('rtl-font');
+            
+            if (isPersian(text)) {
+                el.classList.add('rtl-persian');
+                el.setAttribute('dir', 'rtl');
+            } else if (text.trim()) {
+                el.setAttribute('dir', 'ltr');
+            }
+        });
+    }
+    
+    // Initial process
+    processElements();
+    
+    // Watch for changes
+    new MutationObserver(processElements).observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+    
+    // Handle input events
+    document.addEventListener('input', (e) => {
+        const el = e.target;
+        const text = el.value || el.textContent || '';
+        el.classList.add('rtl-font');
+        
+        if (isPersian(text)) {
+            el.classList.add('rtl-persian');
+            el.setAttribute('dir', 'rtl');
+        } else {
+            el.classList.remove('rtl-persian');
+            el.setAttribute('dir', 'ltr');
+        }
+    });
+    
+    console.log('✅ AI RTL UserScript loaded!');
+})();</pre>
+            </div>
+            <button class="btn success" onclick="copyUserScript()">📋 کپی UserScript</button>
+        </div>
         <div id="scriptSection" class="script-section" style="display: none;">
             <h3>💻 اسکریپت دستی RTL</h3>
             <div class="instructions">
@@ -415,30 +587,31 @@
     </div>
 
     <script>
-        // Method 1: Launch Claude with RTL
-        function launchClaudeWithRTL() {
-            const claudeWindow = window.open('https://claude.ai', '_blank');
-            
-            // Wait for Claude to load, then inject RTL
-            setTimeout(() => {
-                try {
-                    injectRTLScript(claudeWindow);
-                } catch (e) {
-                    showStatus('به دلیل محدودیت‌های امنیتی مرورگر، RTL خودکار امکان‌پذیر نیست. لطفاً از روش بوک‌مارک یا اسکریپت دستی استفاده کنید.', 'error');
-                }
-            }, 3000);
+        // Method 1: Show bookmarklet first  
+        function showBookmarkletFirst() {
+            showBookmarklet();
+            showStatus('💡 Bookmark روشی آسان و قابل اعتماد برای فعال‌سازی RTL روی Claude است!', 'success');
         }
         
         // Method 2: Show bookmarklet
         function showBookmarklet() {
             document.getElementById('bookmarkletSection').style.display = 'block';
             document.getElementById('scriptSection').style.display = 'none';
+            document.getElementById('userScriptSection').style.display = 'none';
         }
         
-        // Method 3: Show manual script
+        // Method 3: Show UserScript
+        function showUserScript() {
+            document.getElementById('userScriptSection').style.display = 'block';
+            document.getElementById('scriptSection').style.display = 'none';
+            document.getElementById('bookmarkletSection').style.display = 'none';
+        }
+        
+        // Method 4: Show manual script (keeping old functionality)
         function showScript() {
             document.getElementById('scriptSection').style.display = 'block';
             document.getElementById('bookmarkletSection').style.display = 'none';
+            document.getElementById('userScriptSection').style.display = 'none';
         }
         
         // Copy bookmarklet
@@ -449,7 +622,19 @@
             });
         }
         
-        // Copy script
+        // Show demo
+        function showDemo() {
+            showStatus('🎬 برای مشاهده عملکرد RTL: ابتدا Bookmark را ایجاد کنید، سپس به Claude بروید و روی Bookmark کلیک کنید!', 'success');
+            setTimeout(() => {
+                showBookmarkletFirst();
+            }, 2000);
+        }
+        function copyUserScript() {
+            const code = document.getElementById('userScriptCode').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                showStatus('✅ UserScript کپی شد! حالا آن را در Tampermonkey paste کنید.', 'success');
+            });
+        }
         function copyScript() {
             const code = document.getElementById('scriptCode').textContent;
             navigator.clipboard.writeText(code).then(() => {
